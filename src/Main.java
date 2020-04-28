@@ -28,8 +28,6 @@ class Main extends JFrame {
         //Set the new frame location
         frame.setLocation(x, y);
         setLocation(x, y);
-        ImageIcon img = new ImageIcon("src/resources/icon.png");
-        frame.setIconImage(img.getImage());
         super.setTitle("Калькулятор процентов на Java");
       }
 
@@ -125,8 +123,6 @@ class Main extends JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", Font.BOLD, 12)); // NOI18N
         jLabel3.setText("Свой %");
-
-
 
         jButton2.setFont(new java.awt.Font("Tahoma", Font.BOLD, 12)); // NOI18N
         jButton2.setText("Очистка");
@@ -225,7 +221,7 @@ class Main extends JFrame {
       /**
        * @param args the command line arguments
        */
-      public static void main(String args[]) {
+      public static void main(String[] args) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
