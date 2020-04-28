@@ -2,6 +2,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -9,7 +10,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 class Main extends JFrame {
 
-  private final String ALL_NUMBERS = "^[0-9]+.+[0-9]$";
+  private final String ALL_NUMBERS = "^[0-9]+$";
   private final int[] NUMS = { 1, 3, 5, 7, 10, 15, 30, 50 };
 
   /**
@@ -49,6 +50,7 @@ class Main extends JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,24 +69,43 @@ class Main extends JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
           public void actionPerformed(java.awt.event.ActionEvent evt) {
 
+            String input = jTextField1.getText();
+            String input2 = jTextField2.getText();
             if (jTextField1.getText().equals("")) {
+              jTextArea1.setText("");
+              jTextField2.setText("");
+              jTextField1.setText("");
               jTextArea1.setText("Should not be NULL");
             }
-            String input = jTextField1.getText();
-            if (!jTextField1.getText().equals("") && jTextField2.getText().equals("")) {
-              try {
+            try {
+            if (!jTextField1.getText().equals("") && jTextField2.getText().equals("") && jTextField1.getText().matches(ALL_NUMBERS)) {
+              jTextArea1.setText("");
+              jTextField2.setText("");
+              jTextField1.setText("");
                 double result = 0.0;
-                  int sum = 0;
-                  int str = Integer.parseInt(input);
-                  for (int j = 0; j < NUMS.length; j++) {
-                    sum = NUMS[j];
-                    result = str * sum / 100;
-                    DecimalFormat formatter = new DecimalFormat("0.0");
-                    jTextArea1.append(sum + "% процентов от " + jTextField1.getText() + " = " + formatter.format(result) + "\n");
-                  }
-              } catch (Exception e) {
-                e.printStackTrace();
+                int sum = 0;
+                int str = Integer.parseInt(input);
+                for (int j = 0; j < NUMS.length; j++) {
+                  sum = NUMS[j];
+                  result = str * sum / 100;
+                  DecimalFormat formatter = new DecimalFormat("0");
+                  jTextArea1.append(
+                      sum + "% процентов от " + jTextField1.getText() + " = " + formatter
+                          .format(result) + "\n");
+
+                }
               }
+              if (!jTextField1.getText().equals("") && !jTextField2.getText().equals("") && jTextField1.getText().matches(ALL_NUMBERS) && jTextField2.getText().matches(ALL_NUMBERS)) {
+                jTextArea1.setText("");
+                int str2 = Integer.parseInt(input);
+                int str3 = Integer.parseInt(input2);
+                int result2 = str2 * str3 / 100;
+                DecimalFormat formatter2 = new DecimalFormat("0");
+                jTextArea1.append(str3 + "% процентов от " + jTextField1.getText() + "  =  " + formatter2.format(result2) + "\n");
+                 }
+              }  catch (Exception e) {
+              jTextArea1.append(e.getMessage() + "\n");
+              e.printStackTrace();
             }
           }
         });
@@ -103,6 +124,16 @@ class Main extends JFrame {
 
 
 
+        jButton2.setFont(new java.awt.Font("Tahoma", Font.BOLD, 12)); // NOI18N
+        jButton2.setText("Очистка");
+        jButton2.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+            jTextArea1.setText("");
+            jTextField2.setText("");
+            jTextField1.setText("");
+          }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,22 +142,25 @@ class Main extends JFrame {
                     .addContainerGap()
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(7, 7, 7)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jButton1))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                             .addComponent(jLabel3)
-                                            .addGap(113, 113, 113)))))
-                            .addGap(0, 12, Short.MAX_VALUE))
+                                            .addGap(113, 113, 113))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(jButton1)))))
+                            .addGap(0, 14, Short.MAX_VALUE))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -144,10 +178,12 @@ class Main extends JFrame {
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(28, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -192,6 +228,8 @@ class Main extends JFrame {
 
       // Variables declaration - do not modify
       private javax.swing.JButton jButton1;
+      private javax.swing.JButton jButton2;
+      private javax.swing.JColorChooser jColorChooser1;
       private javax.swing.JLabel jLabel1;
       private javax.swing.JLabel jLabel2;
       private javax.swing.JLabel jLabel3;
