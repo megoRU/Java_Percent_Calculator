@@ -5,8 +5,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.UnsupportedLookAndFeelException;
 
-
 class Main extends JFrame {
+
+  public final String ALL_NUMBERS = "^[0-9]+.+[0-9]$";
+
 
   /**
        * Creates new form NewJFrame2
@@ -49,15 +51,18 @@ class Main extends JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setFont(new java.awt.Font("Tahoma", Font.BOLD, 12)); // NOI18N
-        jButton1.setText("Отправить");
+        jButton1.setText("Посчитать");
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
+
         jLabel1.setFont(new java.awt.Font("Tahoma", Font.BOLD, 12)); // NOI18N
-        jLabel1.setText("Поле ввода:");
+        jLabel1.setText("Поле ввода суммы:");
+
+
 
         jLabel2.setFont(new java.awt.Font("Tahoma", Font.BOLD, 12)); // NOI18N
         jLabel2.setText("Поле вывода:");
@@ -70,6 +75,8 @@ class Main extends JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", Font.BOLD, 12)); // NOI18N
         jLabel3.setText("Свой %");
+
+
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
