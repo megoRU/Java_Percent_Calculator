@@ -68,20 +68,25 @@ class Main extends JFrame {
 
         jButton1.addActionListener(new java.awt.event.ActionListener() {
           public void actionPerformed(java.awt.event.ActionEvent evt) {
-
+            try {
             String input = jTextField1.getText();
             String input2 = jTextField2.getText();
-            if (jTextField1.getText().equals("")) {
+            if (jTextField1.getText().equals("") && jTextField2.getText().equals("")) {
               jTextArea1.setText("");
               jTextField2.setText("");
               jTextField1.setText("");
-              jTextArea1.setText("Should not be NULL");
+              jTextArea1.setText("И какой смысл?");
             }
-            try {
-            if (!jTextField1.getText().equals("") && jTextField2.getText().equals("") && jTextField1.getText().matches(ALL_NUMBERS)) {
+            else if (jTextField1.getText().equals("") && jTextField2.getText().matches(ALL_NUMBERS)) {
               jTextArea1.setText("");
               jTextField2.setText("");
               jTextField1.setText("");
+              jTextArea1.setText("Неизвестно из какой суммы высчитывать %");
+            }
+             if (!jTextField1.getText().equals("") && jTextField2.getText().equals("") && jTextField1.getText().matches(ALL_NUMBERS)) {
+              jTextArea1.setText("");
+              jTextField2.setText("");
+             // jTextField1.setText("");
                 double result = 0.0;
                 int sum = 0;
                 int str = Integer.parseInt(input);
@@ -89,19 +94,18 @@ class Main extends JFrame {
                   sum = NUMS[j];
                   result = str * sum / 100;
                   DecimalFormat formatter = new DecimalFormat("0");
-                  jTextArea1.append(
-                      sum + "% процентов от " + jTextField1.getText() + " = " + formatter
-                          .format(result) + "\n");
+                  jTextArea1.append(sum + "%" + GetPercentAddition(sum) + " от " + jTextField1.getText() + " = " + formatter.format(result) + " руб." + "\n");
 
                 }
+               jTextField1.setText("");
               }
-              if (!jTextField1.getText().equals("") && !jTextField2.getText().equals("") && jTextField1.getText().matches(ALL_NUMBERS) && jTextField2.getText().matches(ALL_NUMBERS)) {
+              else if (!jTextField1.getText().equals("") && !jTextField2.getText().equals("") && jTextField1.getText().matches(ALL_NUMBERS) && jTextField2.getText().matches(ALL_NUMBERS)) {
                 jTextArea1.setText("");
                 int str2 = Integer.parseInt(input);
                 int str3 = Integer.parseInt(input2);
                 int result2 = str2 * str3 / 100;
                 DecimalFormat formatter2 = new DecimalFormat("0");
-                jTextArea1.append(str3 + "% процентов от " + jTextField1.getText() + "  =  " + formatter2.format(result2) + "\n");
+                jTextArea1.append(str3 + "%" + GetPercentAddition(result2) + " от " + jTextField1.getText() + " = " + formatter2.format(result2) + " руб." + "\n");
                  }
               }  catch (Exception e) {
               jTextArea1.append(e.getMessage() + "\n");
@@ -188,6 +192,27 @@ class Main extends JFrame {
 
         pack();
       }// </editor-fold>
+
+  private String GetPercentAddition(int num) {
+    int preLastDigit = num % 100 / 10;
+    if (preLastDigit == 1) {
+      return " процентов";
+    }
+
+    switch (num % 10) {
+      case 1:
+        return " процент";
+      case 2:
+      case 3:
+        return " процента";
+      case 10:
+        return " процентов";
+      case 50:
+        return " процентов";
+      default:
+        return " процентов";
+    }
+  }
 
   private void jButton1ActionPerformed(ActionEvent evt) {
 
