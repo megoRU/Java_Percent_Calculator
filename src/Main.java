@@ -1,14 +1,16 @@
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.text.DecimalFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.UnsupportedLookAndFeelException;
 
 class Main extends JFrame {
 
-  public final String ALL_NUMBERS = "^[0-9]+.+[0-9]$";
-
+  private final String ALL_NUMBERS = "^[0-9]+.+[0-9]$";
+  private final int[] NUMS = { 1, 3, 5, 7, 10, 15, 30, 50 };
 
   /**
        * Creates new form NewJFrame2
@@ -62,7 +64,30 @@ class Main extends JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", Font.BOLD, 12)); // NOI18N
         jLabel1.setText("Поле ввода суммы:");
 
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+          public void actionPerformed(java.awt.event.ActionEvent evt) {
 
+            if (jTextField1.getText().equals("")) {
+              jTextArea1.setText("Should not be NULL");
+            }
+            String input = jTextField1.getText();
+            if (!jTextField1.getText().equals("") && jTextField2.getText().equals("")) {
+              try {
+                double result = 0.0;
+                  int sum = 0;
+                  int str = Integer.parseInt(input);
+                  for (int j = 0; j < NUMS.length; j++) {
+                    sum = NUMS[j];
+                    result = str * sum / 100;
+                    DecimalFormat formatter = new DecimalFormat("0.0");
+                    jTextArea1.append(sum + "% процентов от " + jTextField1.getText() + " = " + formatter.format(result) + "\n");
+                  }
+              } catch (Exception e) {
+                e.printStackTrace();
+              }
+            }
+          }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", Font.BOLD, 12)); // NOI18N
         jLabel2.setText("Поле вывода:");
@@ -128,7 +153,11 @@ class Main extends JFrame {
         pack();
       }// </editor-fold>
 
-      private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {
+  private void jButton1ActionPerformed(ActionEvent evt) {
+
+  }
+
+  private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
       }
 
