@@ -1,4 +1,4 @@
-# Java_Percent_Calculator
+# Java Percent Calculator
 
 ![Image description](image.png)
 
