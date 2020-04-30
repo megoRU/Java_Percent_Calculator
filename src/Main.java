@@ -4,6 +4,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JFrame;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -55,12 +57,85 @@ class Main extends JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", Font.BOLD, 12)); // NOI18N
         jLabel1.setText("Поле ввода суммы:");
 
+        Action action = new AbstractAction() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            try {
+              String input = jTextField1.getText();
+              String input2 = jTextField2.getText();
+              if (jTextField1.getText().matches(ALL_NUMBERS) && jTextField2.getText().matches(ALL_NUMBERS)) {
+                int percent = Integer.parseInt(input2);
+                if (percent > 99)
+                {
+                  jTextArea1.setText("");
+                  jTextField2.setText("");
+                  jTextField1.setText("");
+                  jTextArea1.setText("А ты я вижу смешной. Зачем больше 100% ?");
+                }
+              }
+              else if (jTextField1.getText().equals("") && jTextField2.getText().equals("")) {
+                jTextArea1.setText("");
+                jTextField2.setText("");
+                jTextField1.setText("");
+                jTextArea1.setText("И какой смысл?");
+              }
+              else if (jTextField1.getText().equals("") && jTextField2.getText().matches(ALL_NUMBERS)) {
+                jTextArea1.setText("");
+                jTextField2.setText("");
+                jTextField1.setText("");
+                jTextArea1.setText("Неизвестно из какой суммы высчитывать %");
+              }
+              if (!jTextField1.getText().equals("") && jTextField2.getText().equals("") && jTextField1.getText().matches(ALL_NUMBERS)) {
+                jTextArea1.setText("");
+                jTextField2.setText("");
+                // jTextField1.setText("");
+                double result = 0.0;
+                int sum = 0;
+                int str = Integer.parseInt(input);
+                for (int j = 0; j < NUMS.length; j++) {
+                  sum = NUMS[j];
+                  result = str * sum / 100;
+                  DecimalFormat formatter = new DecimalFormat("0");
+                  jTextArea1.append(sum + "%" + GetPercentAddition(sum) + " от " + jTextField1.getText() + " = " + formatter.format(result) + " руб." + "\n");
+
+                }
+                jTextField1.setText("");
+              }
+              else if (!jTextField1.getText().equals("") && !jTextField2.getText().equals("") && jTextField1.getText().matches(ALL_NUMBERS) && jTextField2.getText().matches(ALL_NUMBERS)) {
+                jTextArea1.setText("");
+                int str2 = Integer.parseInt(input);
+                int str3 = Integer.parseInt(input2);
+                int result2 = str2 * str3 / 100;
+                DecimalFormat formatter2 = new DecimalFormat("0");
+                jTextArea1.append(str3 + "%" + GetPercentAddition(result2) + " от " + jTextField1.getText() + " = " + formatter2.format(result2) + " руб." + "\n");
+              }
+            }  catch (Exception ee) {
+              jTextArea1.append(ee.getMessage() + "\n");
+              ee.printStackTrace();
+            }
+          }
+        };
+        jTextField1.addActionListener(action);
+        jTextField2.addActionListener(action);
+
+
         jButton1.addActionListener(new java.awt.event.ActionListener() {
           public void actionPerformed(java.awt.event.ActionEvent evt) {
             try {
-            String input = jTextField1.getText();
-            String input2 = jTextField2.getText();
-            if (jTextField1.getText().equals("") && jTextField2.getText().equals("")) {
+              String input = jTextField1.getText();
+              String input2 = jTextField2.getText();
+              if (jTextField1.getText().matches(ALL_NUMBERS) && jTextField2.getText().matches(ALL_NUMBERS)) {
+                int percent = Integer.parseInt(input2);
+                if (percent > 99)
+                {
+                  jTextArea1.setText("");
+                  jTextField2.setText("");
+                  jTextField1.setText("");
+                  jTextArea1.setText("А ты я вижу смешной. Зачем больше 100% ?");
+                }
+              }
+
+            else if (jTextField1.getText().equals("") && jTextField2.getText().equals("")) {
               jTextArea1.setText("");
               jTextField2.setText("");
               jTextField1.setText("");
