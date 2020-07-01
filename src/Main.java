@@ -15,9 +15,8 @@ class Main extends JFrame {
   private javax.swing.JTextArea jTextArea1;
   private javax.swing.JTextField jTextField1;
   private javax.swing.JTextField jTextField2;
-  private final String ALL_NUMBERS = "^[0-9].+[0-9]$";
-//  private final String ALL_DOUBLE_NUMBERS = "^[0-9].+[0-9]$";
-  private final double[] NUMS = {1.0, 3.0, 5.0, 7.0, 10.0, 15.0, 30.0, 50.0};
+  private final String ALL_NUMBERS = "^[0-9]+$";
+  private final int[] NUMS = {1, 3, 5, 7, 10, 15, 30, 50};
 
   public Main() {
     initComponents();
@@ -105,11 +104,11 @@ class Main extends JFrame {
             jTextField2.setText("");
             // jTextField1.setText("");
             double result = 0.0;
-            double sum = 0.0;
-            double str = Double.parseDouble(input);
+            int sum = 0;
+            int str = Integer.parseInt(input);
             for (int j = 0; j < NUMS.length; j++) {
               sum = NUMS[j];
-              result = str * sum / 100.0;
+              result = str * sum / 100;
               DecimalFormat formatter = new DecimalFormat("0.00");
               jTextArea1.append(
                   sum + "%" + GetPercentAddition(sum) + " от " + jTextField1.getText() + " = "
@@ -121,8 +120,8 @@ class Main extends JFrame {
               && jTextField1.getText().matches(ALL_NUMBERS) && jTextField2.getText()
               .matches(ALL_NUMBERS)) {
             jTextArea1.setText("");
-            double str2 = Double.parseDouble(input);
-            int str3 = Integer.parseInt(input2);
+            double str2 = Integer.parseInt(input);
+            double str3 = Integer.parseInt(input2);
             double result2 = str2 * str3 / 100;
             DecimalFormat formatter2 = new DecimalFormat("0.00");
             jTextArea1.append(
@@ -169,11 +168,11 @@ class Main extends JFrame {
           jTextField2.setText("");
           // jTextField1.setText("");
           double result = 0.0;
-          double sum = 0.0;
-          double str = Double.parseDouble(input);
+          double sum = 0;
+          int str = Integer.parseInt(input);
           for (int j = 0; j < NUMS.length; j++) {
             sum = NUMS[j];
-            result = str * sum / 100.0;
+            result = str * sum / 100;
             DecimalFormat formatter = new DecimalFormat("0.00");
             jTextArea1.append(
                 sum + "%" + GetPercentAddition(sum) + " от " + jTextField1.getText() + " = "
@@ -185,8 +184,8 @@ class Main extends JFrame {
             && jTextField1.getText().matches(ALL_NUMBERS) && jTextField2.getText()
             .matches(ALL_NUMBERS)) {
           jTextArea1.setText("");
-          double str2 = Double.parseDouble(input);
-          int str3 = Integer.parseInt(input2);
+          double str2 = Integer.parseInt(input);
+          double str3 = Integer.parseInt(input2);
           double result2 = str2 * str3 / 100;
           DecimalFormat formatter2 = new DecimalFormat("0.00");
           jTextArea1.append(
@@ -305,12 +304,12 @@ class Main extends JFrame {
   }
 
   private String GetPercentAddition(double num) {
-    double preLastDigit = num % 100.0 / 10.0;
+    double preLastDigit = num % 100 / 10;
     if (preLastDigit == 1) {
       return " процентов";
     }
 
-    switch ((int) (num % 10.0)) {
+    switch ((int) (num % 10)) {
       case 1:
         return " процент";
       case 2:
