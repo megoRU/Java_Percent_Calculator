@@ -15,8 +15,9 @@ class Main extends JFrame {
   private javax.swing.JTextArea jTextArea1;
   private javax.swing.JTextField jTextField1;
   private javax.swing.JTextField jTextField2;
-  private final String ALL_NUMBERS = "^[0-9]+$";
-  private final int[] NUMS = {1, 3, 5, 7, 10, 15, 30, 50};
+  private final String ALL_NUMBERS = "^[0-9].+[0-9]$";
+//  private final String ALL_DOUBLE_NUMBERS = "^[0-9].+[0-9]$";
+  private final double[] NUMS = {1.0, 3.0, 5.0, 7.0, 10.0, 15.0, 30.0, 50.0};
 
   public Main() {
     initComponents();
@@ -104,12 +105,12 @@ class Main extends JFrame {
             jTextField2.setText("");
             // jTextField1.setText("");
             double result = 0.0;
-            int sum = 0;
-            int str = Integer.parseInt(input);
+            double sum = 0.0;
+            double str = Double.parseDouble(input);
             for (int j = 0; j < NUMS.length; j++) {
               sum = NUMS[j];
-              result = str * sum / 100;
-              DecimalFormat formatter = new DecimalFormat("0");
+              result = str * sum / 100.0;
+              DecimalFormat formatter = new DecimalFormat("0.00");
               jTextArea1.append(
                   sum + "%" + GetPercentAddition(sum) + " от " + jTextField1.getText() + " = "
                       + formatter.format(result) + " руб." + "\n");
@@ -120,10 +121,10 @@ class Main extends JFrame {
               && jTextField1.getText().matches(ALL_NUMBERS) && jTextField2.getText()
               .matches(ALL_NUMBERS)) {
             jTextArea1.setText("");
-            int str2 = Integer.parseInt(input);
+            double str2 = Double.parseDouble(input);
             int str3 = Integer.parseInt(input2);
-            int result2 = str2 * str3 / 100;
-            DecimalFormat formatter2 = new DecimalFormat("0");
+            double result2 = str2 * str3 / 100;
+            DecimalFormat formatter2 = new DecimalFormat("0.00");
             jTextArea1.append(
                 str3 + "%" + GetPercentAddition(result2) + " от " + jTextField1.getText() + " = "
                     + formatter2.format(result2) + " руб." + "\n");
@@ -168,12 +169,12 @@ class Main extends JFrame {
           jTextField2.setText("");
           // jTextField1.setText("");
           double result = 0.0;
-          int sum = 0;
-          int str = Integer.parseInt(input);
+          double sum = 0.0;
+          double str = Double.parseDouble(input);
           for (int j = 0; j < NUMS.length; j++) {
             sum = NUMS[j];
-            result = str * sum / 100;
-            DecimalFormat formatter = new DecimalFormat("0");
+            result = str * sum / 100.0;
+            DecimalFormat formatter = new DecimalFormat("0.00");
             jTextArea1.append(
                 sum + "%" + GetPercentAddition(sum) + " от " + jTextField1.getText() + " = "
                     + formatter.format(result) + " руб." + "\n");
@@ -184,10 +185,10 @@ class Main extends JFrame {
             && jTextField1.getText().matches(ALL_NUMBERS) && jTextField2.getText()
             .matches(ALL_NUMBERS)) {
           jTextArea1.setText("");
-          int str2 = Integer.parseInt(input);
+          double str2 = Double.parseDouble(input);
           int str3 = Integer.parseInt(input2);
-          int result2 = str2 * str3 / 100;
-          DecimalFormat formatter2 = new DecimalFormat("0");
+          double result2 = str2 * str3 / 100;
+          DecimalFormat formatter2 = new DecimalFormat("0.00");
           jTextArea1.append(
               str3 + "%" + GetPercentAddition(result2) + " от " + jTextField1.getText() + " = "
                   + formatter2.format(result2) + " руб." + "\n");
@@ -303,13 +304,13 @@ class Main extends JFrame {
     pack();
   }
 
-  private String GetPercentAddition(int num) {
-    int preLastDigit = num % 100 / 10;
+  private String GetPercentAddition(double num) {
+    double preLastDigit = num % 100.0 / 10.0;
     if (preLastDigit == 1) {
       return " процентов";
     }
 
-    switch (num % 10) {
+    switch ((int) (num % 10.0)) {
       case 1:
         return " процент";
       case 2:
