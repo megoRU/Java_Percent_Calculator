@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="JavaPercentCalculator:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/JavaPercentCalculator_jar</output-path>
-    <root id="archive" name="JavaPercentCalculator.jar">
-      <element id="module-output" name="JavaPercentCalculator" />
-    </root>
-  </artifact>
-</component>

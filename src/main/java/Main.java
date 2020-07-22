@@ -35,7 +35,7 @@ class Main extends JFrame {
   }
 
   private Image getImage() {
-    String fileName = "img/" + "icon" + ".png";
+    String fileName = "icon" + ".png";
     ImageIcon icon = new ImageIcon(getClass().getResource(fileName));
     return icon.getImage();
   }
