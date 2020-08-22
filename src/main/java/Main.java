@@ -16,6 +16,7 @@ class Main extends JFrame {
   private javax.swing.JTextField jTextField1;
   private javax.swing.JTextField jTextField2;
   private final String ALL_NUMBERS = "^[0-9]+$";
+  private final String ALL_NUMBERS_AND_DOT = "^[0-9]*[.,]?[0-9]+$";
   private final int[] NUMS = {1, 3, 5, 7, 10, 15, 30, 50};
 
   public Main() {
@@ -74,129 +75,14 @@ class Main extends JFrame {
     Action action = new AbstractAction() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        try {
-          String input = jTextField1.getText();
-          String input2 = jTextField2.getText();
-          if (jTextField1.getText().matches(ALL_NUMBERS) && jTextField2.getText()
-              .matches(ALL_NUMBERS)) {
-            int percent = Integer.parseInt(input2);
-            if (percent > 99) {
-              jTextArea1.setText("");
-              jTextField2.setText("");
-              jTextField1.setText("");
-              jTextArea1.setText("А ты я вижу смешной. Зачем больше 100% ?");
-            }
-          } else if (jTextField1.getText().equals("") && jTextField2.getText().equals("")) {
-            jTextArea1.setText("");
-            jTextField2.setText("");
-            jTextField1.setText("");
-            jTextArea1.setText("И какой смысл?");
-          } else if (jTextField1.getText().equals("") && jTextField2.getText()
-              .matches(ALL_NUMBERS)) {
-            jTextArea1.setText("");
-            jTextField2.setText("");
-            jTextField1.setText("");
-            jTextArea1.setText("Неизвестно из какой суммы высчитывать %");
-          }
-          if (!jTextField1.getText().equals("") && jTextField2.getText().equals("") && jTextField1
-              .getText().matches(ALL_NUMBERS)) {
-            jTextArea1.setText("");
-            jTextField2.setText("");
-            // jTextField1.setText("");
-            double result = 0.0;
-            int sum = 0;
-            int str = Integer.parseInt(input);
-            for (int j = 0; j < NUMS.length; j++) {
-              sum = NUMS[j];
-              result = str * sum / 100;
-              DecimalFormat formatter = new DecimalFormat("0.00");
-              jTextArea1.append(
-                  sum + "%" + GetPercentAddition(sum) + " от " + jTextField1.getText() + " = "
-                      + formatter.format(result) + " руб." + "\n");
-
-            }
-            jTextField1.setText("");
-          } else if (!jTextField1.getText().equals("") && !jTextField2.getText().equals("")
-              && jTextField1.getText().matches(ALL_NUMBERS) && jTextField2.getText()
-              .matches(ALL_NUMBERS)) {
-            jTextArea1.setText("");
-            double str2 = Integer.parseInt(input);
-            double str3 = Integer.parseInt(input2);
-            double result2 = str2 * str3 / 100;
-            DecimalFormat formatter2 = new DecimalFormat("0.00");
-            jTextArea1.append(
-                str3 + "%" + GetPercentAddition(result2) + " от " + jTextField1.getText() + " = "
-                    + formatter2.format(result2) + " руб." + "\n");
-          }
-        } catch (Exception ee) {
-          jTextArea1.append(ee.getMessage() + "\n");
-          ee.printStackTrace();
-        }
+        getText(jTextField1.getText(), jTextField2.getText());
       }
     };
     jTextField1.addActionListener(action);
     jTextField2.addActionListener(action);
 
-    jButton1.addActionListener(evt -> {
-      try {
-        String input = jTextField1.getText();
-        String input2 = jTextField2.getText();
-        if (jTextField1.getText().matches(ALL_NUMBERS) && jTextField2.getText()
-            .matches(ALL_NUMBERS)) {
-          int percent = Integer.parseInt(input2);
-          if (percent > 99) {
-            jTextArea1.setText("");
-            jTextField2.setText("");
-            jTextField1.setText("");
-            jTextArea1.setText("А ты я вижу смешной. Зачем больше 100% ?");
-          }
-        } else if (jTextField1.getText().equals("") && jTextField2.getText().equals("")) {
-          jTextArea1.setText("");
-          jTextField2.setText("");
-          jTextField1.setText("");
-          jTextArea1.setText("И какой смысл?");
-        } else if (jTextField1.getText().equals("") && jTextField2.getText()
-            .matches(ALL_NUMBERS)) {
-          jTextArea1.setText("");
-          jTextField2.setText("");
-          jTextField1.setText("");
-          jTextArea1.setText("Неизвестно из какой суммы высчитывать %");
-        }
-        if (!jTextField1.getText().equals("") && jTextField2.getText().equals("") && jTextField1
-            .getText().matches(ALL_NUMBERS)) {
-          jTextArea1.setText("");
-          jTextField2.setText("");
-          // jTextField1.setText("");
-          double result = 0.0;
-          double sum = 0;
-          int str = Integer.parseInt(input);
-          for (int j = 0; j < NUMS.length; j++) {
-            sum = NUMS[j];
-            result = str * sum / 100;
-            DecimalFormat formatter = new DecimalFormat("0.00");
-            jTextArea1.append(
-                sum + "%" + GetPercentAddition(sum) + " от " + jTextField1.getText() + " = "
-                    + formatter.format(result) + " руб." + "\n");
+    jButton1.addActionListener(evt -> getText(jTextField1.getText(), jTextField2.getText()));
 
-          }
-          jTextField1.setText("");
-        } else if (!jTextField1.getText().equals("") && !jTextField2.getText().equals("")
-            && jTextField1.getText().matches(ALL_NUMBERS) && jTextField2.getText()
-            .matches(ALL_NUMBERS)) {
-          jTextArea1.setText("");
-          double str2 = Integer.parseInt(input);
-          double str3 = Integer.parseInt(input2);
-          double result2 = str2 * str3 / 100;
-          DecimalFormat formatter2 = new DecimalFormat("0.00");
-          jTextArea1.append(
-              str3 + "%" + GetPercentAddition(result2) + " от " + jTextField1.getText() + " = "
-                  + formatter2.format(result2) + " руб." + "\n");
-        }
-      } catch (Exception e) {
-        jTextArea1.append(e.getMessage() + "\n");
-        e.printStackTrace();
-      }
-    });
 
     jLabel2.setFont(new java.awt.Font("Tahoma", Font.BOLD, 12)); // NOI18N
     jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -301,6 +187,65 @@ class Main extends JFrame {
     );
 
     pack();
+  }
+
+  public void getText(String input, String input2) {
+    try {
+      if (jTextField1.getText().matches(ALL_NUMBERS) && jTextField2.getText()
+          .matches(ALL_NUMBERS_AND_DOT)) {
+        double percent = Double.parseDouble(input2);
+        if (percent > 99.0) {
+          jTextArea1.setText("");
+          jTextField2.setText("");
+          jTextField1.setText("");
+          jTextArea1.setText("А ты я вижу смешной. Зачем больше 100% ?");
+        }
+      } else if (jTextField1.getText().equals("") && jTextField2.getText().equals("")) {
+        jTextArea1.setText("");
+        jTextField2.setText("");
+        jTextField1.setText("");
+        jTextArea1.setText("И какой смысл?");
+      } else if (jTextField1.getText().equals("") && jTextField2.getText()
+          .matches(ALL_NUMBERS_AND_DOT)) {
+        jTextArea1.setText("");
+        jTextField2.setText("");
+        jTextField1.setText("");
+        jTextArea1.setText("Неизвестно из какой суммы высчитывать %");
+      }
+      if (!jTextField1.getText().equals("") && jTextField2.getText().equals("") && jTextField1
+          .getText().matches(ALL_NUMBERS_AND_DOT)) {
+        jTextArea1.setText("");
+        jTextField2.setText("");
+        // jTextField1.setText("");
+        double result = 0.0;
+        int sum = 0;
+        int str = Integer.parseInt(input);
+        for (int j = 0; j < NUMS.length; j++) {
+          sum = NUMS[j];
+          result = str * sum / 100;
+          DecimalFormat formatter = new DecimalFormat("0.00");
+          jTextArea1.append(
+              sum + "%" + GetPercentAddition(sum) + " от " + jTextField1.getText() + " = "
+                  + formatter.format(result) + " руб." + "\n");
+
+        }
+        jTextField1.setText("");
+      } else if (!jTextField1.getText().equals("") && !jTextField2.getText().equals("")
+          && jTextField1.getText().matches(ALL_NUMBERS) && jTextField2.getText()
+          .matches(ALL_NUMBERS_AND_DOT)) {
+        jTextArea1.setText("");
+        double str2 = Integer.parseInt(input);
+        double str3 = Double.parseDouble(input2);
+        double result2 = str2 * str3 / 100;
+        DecimalFormat formatter2 = new DecimalFormat("0.00");
+        jTextArea1.append(
+            str3 + "%" + GetPercentAddition(result2) + " от " + jTextField1.getText() + " = "
+                + formatter2.format(result2) + " руб." + "\n");
+      }
+    } catch (Exception ee) {
+      jTextArea1.append(ee.getMessage() + "\n");
+      ee.printStackTrace();
+    }
   }
 
   private String GetPercentAddition(double num) {
